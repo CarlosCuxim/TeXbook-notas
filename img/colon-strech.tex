@@ -1,0 +1,25 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+
+\begin{document}
+
+\newdimen\bwidth \bwidth=270pt
+\def\content{``Oh oh!'' cried Baby Sally. Dick and Jane laughed.}%
+
+\fbox{\vbox{
+    \hbox{\content}
+    \hbox spread 5pt{\content}
+    \hbox spread 10pt{\content}
+    \hbox spread 15pt{\content}
+    \hbox spread 20pt{\content}
+}}
+
+\end{document}

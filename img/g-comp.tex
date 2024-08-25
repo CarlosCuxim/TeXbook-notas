@@ -1,0 +1,54 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\tikzset{
+    pics/box frame/.style args={(#1+#2)x#3}{
+        code={
+            \draw rectangle (#3,#1);
+            \draw rectangle (#3,-#2);
+        }},
+}
+
+\font\bigrm=cmr10 at 100pt
+\font\bigsl=cmsl10 at 100pt
+
+
+\begin{document}
+\begin{tikzpicture}[x=1pt, y=1pt]
+
+    \newbox\rG \newdimen\hrG \newdimen\drG \newdimen\wrG
+    \newbox\sG \newdimen\hsG \newdimen\dsG \newdimen\wsG
+    \newbox\sGcorr \newdimen\cG
+    \setbox\rG=\hbox{\bigrm g} \hrG=\ht\rG \drG=\dp\rG \wrG=\wd\rG
+    \setbox\sG=\hbox{\bigsl g} \hsG=\ht\sG \dsG=\dp\sG \wsG=\wd\sG
+    \setbox\sGcorr=\hbox{\bigsl g\/} \cG=\wd\sGcorr \advance\cG by -\wsG
+
+    \coordinate (rG) at (0,0);
+    \coordinate (sG) at (\wrG+25pt,0); 
+
+    \path (sG) +(-\dsG*\cG/\hsG, -\dsG) coordinate (X);
+    \path (sG) +(\cG, \hsG) coordinate (Y);
+    
+    \draw[gray] (X) -- (Y) -- ($(Y)+(\wsG,0)$) -- ($(X)+(\wsG,0)$) --cycle;
+
+    \begin{scope}[inner sep=0pt, anchor=base west]
+        \node at (rG) {\box\rG}; 
+        \node at (sG) {\box\sG};
+    \end{scope}
+
+    \pic at (rG) {box frame=(\hrG+\drG)x\wrG};
+    \fill (rG) circle [radius=2pt]; 
+
+    \pic at (sG) {box frame=(\hsG+\dsG)x\wsG};
+    \fill (sG) circle [radius=2pt];   
+
+    \path ($(0,-\drG)-(0,2pt)$) rectangle ($(Y)+(\wsG,3pt)$);
+
+\end{tikzpicture}
+\end{document}

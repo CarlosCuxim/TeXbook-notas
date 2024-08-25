@@ -100,5 +100,5 @@ También existe algunos comandos que permiten cambiar la interacción del progra
 
 Algunos errores pueden ser largos, el comando `\errorcontextlines` indica el número de líneas máximo que un error puede contener. Por defecto está inicializado como
 ```tex
-\errocontextlines=5
+\errorcontextlines=5
 ```

@@ -10,3 +10,7 @@ Estas serán unas notas del $\TeX$book. Este documento servirá de mall para rev
 - [[Capitulo 6|Capítulo 6]]: Corriendo $\TeX$
 - [[Capitulo 7|Capítulo 7]]: Cómo $\TeX$ lee lo que escribes
 - [[Capitulo 8|Capítulo 8]]: Los caracteres que escribes
+- [[Capitulo 9]]: Las fuentes roman de $\TeX$.
+- [[Capitulo 10]]: Dimensiones
+- [[Capitulo 11]]: Cajas
+- [[Capitulo 12]]: Pegamento

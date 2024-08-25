@@ -1,0 +1,26 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+
+\begin{document}
+
+\newdimen\bwidth \bwidth=270pt
+\def\line#1{\hbox to\bwidth{#1}}%
+
+\fbox{\vbox{
+    \line{This text will be flush left.\hfil}
+    \line{\hfil This text will be flush right.}
+    \line{\hfil This text will be centered.\hfil}
+    \line{Some text flush left\hfil and some flush right.}
+    \line{Alpha\hfil centered between Alpha and Omega\hfil Omega}
+    \line{Five\hfil words\hfil equally\hfil spaced\hfil out.}
+}}
+
+\end{document}

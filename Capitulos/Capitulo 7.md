@@ -7,17 +7,17 @@ Estos valores, sus significados y los caracteres asociados por default a estos v
 | **Categoría** | **Significado**        | **Caracteres**                         |
 | :-----------: | ---------------------- | -------------------------------------- |
 |       0       | Carácter de escape     | `\`                                    |
-|       1       | Inicio de un grupo     | `{`                                    |
-|       2       | Final de un grupo      | `}`                                    |
+|       1       | Inicio de grupo        | `{`                                    |
+|       2       | Final de grupo         | `}`                                    |
 |       3       | Cambio matemático      | `$`                                    |
 |       4       | Alineación de tabla    | `&`                                    |
-|       5       | Final de una línea     | `⏎`                                    |
+|       5       | Final de línea         | `⏎`                                    |
 |       6       | Parámetro              | `#`                                    |
 |       7       | Superíndice            | `^`                                    |
 |       8       | Subíndice              | `_`                                    |
 |       9       | Carácter ignorado      | ⟨null⟩                                 |
 |      10       | Espacio                | `␣`                                    |
-|      11       | Letra                  | `A`, …,`Z` y `a`, …,`z`                 |
+|      11       | Letra                  | `A`, …,`Z` y `a`, …,`z`                |
 |      12       | Otro carácter          | Ninguno de los anteriores o siguientes |
 |      13       | Carácter activo        | `~`                                    |
 |      14       | Carácter de comentario | `%`                                    |
@@ -84,9 +84,9 @@ que es el el código [[ASCII]] para la barra invertida (\\).
 ---
 Otra forma de obtener secuencias de control, además de usar el carácter de escape, es mediante los comandos `\csname` y `\endcsname`. La sintaxis es la siguiente:
 >[!sintaxis]
->`\csname`⟨_cs tokens_⟩`\endcsme`
+>`\csname`⟨_char tokens_⟩`\endcsme`
 
-donde ⟨_cs tokens_⟩ puede contener:
+donde ⟨_char tokens_⟩ puede contener:
 - Caracteres de cualquier categoría
 - Comandos que se expanden en caracteres
 
@@ -96,7 +96,7 @@ No hay diferencia entre una secuencia control creada usando el carácter de esca
 ```
 tiene exactamente el mismo  significado que el comando `\TeX`.
 
-Notar que ⟨_cs tokens_⟩ se expande antes de crear un token, de este modo el siguiente código
+Notar que ⟨_char tokens_⟩ se expande antes de crear un token, de este modo el siguiente código
 ```tex
 \csname\string\TeX\endcsname
 ```

@@ -5,3 +5,4 @@ El nombre de $\TeX$ viene de la palabra griega $\tau\epsilon\chi$ que es la raí
 Este enfoque es para recordar que $\TeX$ es un sistema para hacer documentos tipográficos de alta calidad.
 
 La E en $\TeX$ está bajada para mostrar las altas capacidades del programa. Así, para escribirlo en texto plano se debe escribir como `TeX`.
+
