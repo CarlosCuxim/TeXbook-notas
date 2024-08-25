@@ -212,3 +212,14 @@ Cada vez que una caja es agregada a la lista vertical, $\TeX$ agrega un “pegam
 Las reglas para el pegamento de interlineado son llevadas a cabo sin tener en cuenta otros tipos de pegamento que podrían estar presentes. Es decir, todo el espacio vertical dado por una aparición explícita de `\vskip` y `\kern` actual independiente al pegamento de interlineado. De este modo, un `\smallskip` entre dos líneas siempre separa sus líneas base más que de lo que usualmente estarían, por una cantidad de un `\smallskip`, este comando no afecta la decisión acerca de cuando el pegamento `\lineskip` será usado entre esas líneas.
 
 Por ejemplo, supongamos que `\baselineskip=12pt plus 2pt`, `\lineskip=3pt minus 1pt` y `\lineskiplimit=2pt`. Además, supongamos que una caja cuya profundidad es de 3 pt fue la más recientemente agregada a la lista vertical actual. Estamos a punto de agregar una nueva caja cuya altura es $h$. Si $h = 5\,\text{pt}$, el pegamento de interlineado será de `4pt plus 2pt`, ya que eso hará que las líneas base estén alejadas `12pt plus 2pt`  cuando agreguemos $h$ y la profundidad anterior al pegamento de interlineado.
+> [!imagen]
+> ![[vbox-ex-1.svg|600]]
+
+Sin embargo, si $h=8\,\text{pt}$, el pegamento de interlineado será 3 pt minus 1 pt, dado que `\lineskip` será usado como pegamento de interlineado. Ya que en caso contrario, el pegamento de interlineado, ignorando el estirado y encogido, sería de $1\,\text{pt}= 12\,\text{pt}-3\,\text{pt}-8\,\text{pt}$, que es menor que `\lineskiplimit`.
+> [!imagen]
+> ![[vbox-ex-2.svg|600]]
+
+>[!nota]
+>Como regla genera, si se tiene un documento de muchas páginas lo mejor es  definir `\baselineskip` para que no se estire ni encoja. Sin embargo, si es un documento de una sola página, darle estirado a `\baselineskip` puede ayudar a $\TeX$ a llenar el contenido en la página.
+
+---

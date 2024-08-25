@@ -1,0 +1,52 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\tikzset{
+    pics/box frame/.style args={(#1+#2)x#3}{
+        code={
+            \draw rectangle (#3,#1);
+            \draw rectangle (#3,-#2);
+        }},
+}
+
+
+\begin{document}
+\begin{tikzpicture}[x=10pt, y=10pt]
+
+    \def\hA{7} \def\dA{3} \def\wA{20}
+    \def\spG{4} \def\stG{2}
+    \def\hB{5} \def\dB{3} \def\wB{20}
+
+    \coordinate (bA) at (0,0);
+    \pic at (bA) {box frame=(\hA+\dA)x\wA};
+    \fill (bA) circle [radius=2pt];
+
+    \coordinate (bB) at (0,-\dA-\hB-\spG);
+    \pic at (bB) {box frame=(\hB+\dB)x\wB};
+    \fill (bB) circle [radius=2pt];
+
+    \begin{scope}[inner sep=2pt]
+        \node[left=3pt] (IG) at ($(bA)-(0,\dA)-0.5*(0,\spG)$) {\spG pt plus \stG pt};
+        \node (dA) at (IG |- 0,-\dA/2) {\dA pt};
+        \node (hB) at (IG |- 0,-\dA-\spG-\hB/2) {\hB pt};
+        \node[right=3pt] (BS) at ($0.5*(bB)+(\wA,0)$) {12 pt plus \stG pt};
+    \end{scope}
+
+    \def\ArrowVlabel at (#1) from (#2) to (#3);{
+        \draw[->] (#1.south) -- (#1.south |- #2);
+        \draw[->] (#1.north) -- (#1.north |- #3);
+    }
+    
+    \ArrowVlabel at (dA) from (0,-\dA) to (bA);
+    \ArrowVlabel at (IG) from (0,-\dA-\spG) to (0,-\dA);
+    \ArrowVlabel at (hB) from (bB) to (0,-\dA-\spG);
+    \ArrowVlabel at (BS) from (bB) to (bA);
+    
+\end{tikzpicture}
+\end{document}
