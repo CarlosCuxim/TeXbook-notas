@@ -223,3 +223,90 @@ Sin embargo, si $h=8\,\text{pt}$, el pegamento de interlineado será 3 pt minus 
 >Como regla genera, si se tiene un documento de muchas páginas lo mejor es  definir `\baselineskip` para que no se estire ni encoja. Sin embargo, si es un documento de una sola página, darle estirado a `\baselineskip` puede ayudar a $\TeX$ a llenar el contenido en la página.
 
 ---
+Se puede ver como $\TeX$ coloca una caja vertical en el `.log` mediante `\showbox`. Un ejemplo es el siguiente (procede de un párrafo del $\TeX$book):
+```tex
+\glue 6.0 plus 2.0 minus 2.0
+\glue(\parskip) 0.0 plus 1.0
+\glue(\baselineskip) 1.25
+\hbox(7.5+1.93748)x312.0, glue set 0.80154, shifted 36.0 []
+\penalty 10000
+\glue(\baselineskip) 2.81252
+\hbox(6.25+1.93748)x312.0, glue set 0.5816, shifted 36.0 []
+\penalty 50
+\glue(\baselineskip) 2.81252
+\hbox(6.25+1.75)x348.0, glue set 116.70227fil []
+\penalty 10000
+\glue(\abovedisplayskip) 6.0 plus 3.0 minus 1.0
+\glue(\lineskip) 1.0
+\hbox(149.25+0.74998)x348.0 []
+```
+
+En primer logar, el primer `\glue` es de un `\medskip` . El siguiente es un pegamento de `\parskip` el cual es agregado antes de la primera línea de un nuevo párrafo. El siguiente es el pegamento de interlineado de 1.25 pt, fue calculado de tal manera que al sumar la altura de la siguiente caja (7.5 pt) y la profundidad de la anterior caja (2.25 pt, aunque no se puede ver en el código) el total sea de 11 pt.
+
+Después tenemos un `\hbox` que corresponde a la primera línea del párrafo, ha sido movida en 36 pt dada la sangría. El ratio de colocado de pegamento es de 0.80154, es decir, el pegamento dentro de la caja será estirado en un 80.154%. 
+>[!nota]
+>Cuando la caja tiene que ser encogida, el ratio de colocación de pegamento irá en negativo.
+
+Además, la cadena `[]` indica que en el `\hbox` hay contenido en esa caja que no ha sido mostrado. Es posible ver el contenido si el valor `\showboxdepht` es cambiado a uno más grande. El comando `\penalty` es usado para evitar malos saltos de página.
+
+La tercera caja tiene un ratio de pegamento de 116.70227, el cual aplica a un estirado infinito de primer orden (fil). Esto resulta de un `\hfil` que es implícitamente agregado (al final de los párrafos) para llenar la tercera fila.
+
+Finalmente, se tiene un gran `\hbox` cuya altura (149.25 pt) causa que `\lineskip` sea el pegamento de interlineado. 
+
+Existe una excepción a las reglas del pegamento de interlineado. No se agrega ningún tipo de pegamento antes o después de una caja de regla (línea recta horizontal). También es posible inhibir el pegamento de interlineado mediante `\nointerlineskip` entre las cajas.
+
+Finalmente, el pegamento de interlineado involucra un valor primitivo llamado `\prevdepth` que guarda la profundidad de la última caja de la lista vertical. Sin embargo, al inicio de la lista vertical y después de una regla horizontal su valor será de -1000 pt, esto sirve para suprimir el próximo pegamento de interlineado.
+
+Es posible cambiar el valor de `\prevdepht` en cualquier momento cuando se construye una lista vertical. Por ejemplo, el comando `\nointerlineskip` se expande a `\prevdepth=-1000pt`.
+
+Las reglas exactas con las cuales $\TeX$ calcula el pegamento de interlineado es la siguiente: Supongamos que una nueva caja de altura $h$ (que no sea una regla vertical) está a punto de ser agregada a la lista vertical actual y sea `\prevdepth`$= p$,  `\lineskiplimit`$= l$ y `\baselineskip`$= b$ plus $y$ minus $z$ .
+
+Si $p \leq -1000\,\text{pt}$, ningún pegamento de interlineado es agregado. De otra forma, si $b-p-h \geq l$, entonces el pegamento de interlineado $b-p-h$ plus $y$ minus $z$ será agregado justo encima de la nueva caja. De otra forma, el pegamento `\lineskip` será agregado. Finalmente, el valor de `\prevdepth` será cambiado a la profundidad de la nueva caja.
+
+---
+El análogo vertical de `\hbox` es `\vbox`, además, se podrá usar las sintaxis `\vbox to`⟨_dimen_⟩`{`⟨_content of box_⟩`}` y `\vbox spread`⟨_dimen_⟩`{`⟨_content of box_⟩`}` y funcionaran como uno se esperaría.
+
+Sin embargo, hay una única diferencia, la dimensión que se le da a `\vbox` modificará únicamente la altura de la caja que genera, más no la profundidad, la cual será la misma que la de la última caja. Por ejemplo, el comando `\vbox to 50pt{...}` producirá una caja con exactamente 50 pt de alto cuyo punto de referencia será el mismo que el de la última caja en la lista vertical.
+
+Por norma general, las cajas verticales colocan sus elementos alineando el punto de referencia a la izquierda, sin embargo $\TeX$ también ofrece los comandos `\moveright`⟨_dimen_⟩⟨_box_⟩ y `\moveleft`⟨_dimen_⟩⟨_box_⟩, análogos de los comandos `\raise` y `\lower`, que permiten mover una caja de la lista vertical a la derecha e izquierda, respectivamente, lo que podría modificar la posición exacta de algunos de estos puntos base.
+
+Las cajas verticales involucran un poco más de cosas que cajas y pegamentos, por lo que la regla exacta para determinar la profundidad es más compleja que lo mencionado anteriormente. Para ser exactos
+1. Si la lista vertical no contiene cajas, su profundidad es cero.
+2. Si existe al menos una caja pero la ultima caja esta es seguida de un kerning o pegamento, posiblemente con penalties interviniendo u otras cosas, la profundidad será cero.
+3. Si existe al menos una caja y la ultima caja no es seguida de kerning o pegamento, la profundidad de la caja será la profundidad de esa caja.
+4. Sin embargo, si la profundidad calculada por las relgas 1, 2 o 3 excede `\boxmaxdepth` la profundidad será exactamente el valor actual de `\boxmaxdepth`.
+
+Por defecto, `\boxmaxdepth` será exactamente el mismo que la mayor dimensión posible, por lo que normalmente la ultima regla no se aplica. Sin embargo, cuando la regla 4 es aplicada, $\TeX$ agregará el exceso de profundidad a la altura natural de la caja, lo que esencialmente es mover el punto de referencia hacia abajo hasta que la profundidad se haya reducido al máximo establecido.
+
+La colocación del pegamento en una caja vertical es exactamente la misma que el una caja horizontal, determinando el ratio de colocación de pegamento y el orden de colocación del pegamento basado en la distancia entre la altura natural $x$ y la altura deseada $w$, así como en la cantidad de estiramiento y encogimiento que esté presente.
+
+La anchura de una caja vertical es la máxima distancia en la cual una caja interior se extiende a la derecha del punto base, tomando en cuenta un posible desplazamiento. Esta anchura será siempre no negativa. 
+
+---
+Existe otro comando para generar cajas verticales. Este comando es `\vtop` el cual funciona como `\vbox` solo que la línea base será igual al de la primera caja, en vez de la última. Por ejemplo el código
+```tex
+\hbox{Here are \vtop{\hbox{two lines}\hbox{of text.}}}
+```
+producirá el siguiente resultado:
+>[!imagen]
+>![[vtop-ex.svg|400]]
+
+También se puede usar las sintaxis `\vtop to`⟨_dimen_⟩`{`⟨_content of box_⟩`}` y `\vtop spread`⟨_dimen_⟩`{`⟨_content of box_⟩`}`. Sin embargo, la forma exacta en la que funciona `\vtop` es la siguiente
+1. La caja es construida de la misma forma que si se hubiera usado `\vbox`, usando todas las reglas anteriores.
+2. La altura de la caja $x$ será cero a menos que el primer elemento sea una caja, en este caso $x$ será la altura de esa caja.
+3. Si $d$ y $h$ son la altura y profundidad de la caja vertical construida en 1, $\TeX$ finaliza la construcción al mover el punto de referencia arriba o abajo del tal manera que la caja tenga altura $x$ y profundidad $h+d-x$.
+
+El problema con `\vbox` y `\vtop` es que uno de sus dimensiones es mucho más grande que el otro, específicamente la altura y profundidad, respectivamente. Esto puede afectar la manera en la que $\TeX$ coloca el pegamento de interlineado. Esto puede ser resuelto con el comando `\strut` que es una regla vertical de anchura cero. Esto permite controlar manualmente el espacio entre cajas verticales.
+
+---
+Finalmente, tenemos dos comandos gemelos que generan contenido sin que esté, aparentemente, dentro de una caja, estos son `\rlap` y `\llap`. La idea es que si escribimos `\rlap{`⟨_something_⟩`}` entonces la posición será la misma como si no hubiésemos escrito ⟨_something_⟩, sin embargo el contenido si estará presente, específicamente justo a la derecha de la posición, esto permite superponer cajas y por tanto sus contenidos.
+
+Más precisamente, `\rlap{`⟨_something_⟩`}` crea una caja de anchura cero con ⟨_something_⟩ apareciendo justo a la derecha de esa caja sin consumir ningún espacio. El comando `\llap` es similar, solo que el contenido apareciendo a la izquierda.
+
+Usando estos comandos es posible obtener el símbolo $\neq$ sin depender del modo matemático y usando otras fuentes. También es posible colocar contenido a la derecha o izquierda de los márgenes, ya que $\TeX$ no prohíbe que el contenido de una caja esté afuera del los límites de la caja.
+
+Aunque es posible definir estos comandos mediante un kern negativo, este se puede hacer con pegamento infinito. La definición de `\rlap` es la siguiente:
+```tex
+\def\rlap#1{\hbox to 0pt{#1\hss}}
+```
+Esto funciona ya que al tener anchura 0 pt, la caja siempre se encogerá y dado que el comando `\hss` agrega un pegamento de 0 pt de anchura que se puede encoger infinitamente, de esta manera se puede encoger para que tenga anchura de -5 pt, lo que causa un desplazamiento a la derecha del contenido.
