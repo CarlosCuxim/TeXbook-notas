@@ -133,7 +133,7 @@ Es posible ver el pegamento que $\TeX$ pone entre las palabras usando `\showbox`
 .\glue 4.44444 plus 4.99997 minus 0.37036
 ```
 
-Se puede ver como un espacio entre palabras normal es de 3.33333 pt con estiramiento de 2.08331 o y encogimiento de 0.88889 pt. Además se puede ver como cambia después de un signo de puntuación, como convierte las ligaturas y agrega algunos `\kern` para mejorar el espaciado.
+Se puede ver como un espacio entre palabras normal es de 3.33333 pt con estiramiento de 1.66666 o y encogimiento de 1.11111 pt. Además se puede ver como cambia después de un signo de puntuación, como convierte las ligaturas y agrega algunos `\kern` para mejorar el espaciado.
 
 >[!nota]
 >Un `\kern` es como un pegamento, solo que no se estira ni encoge. Además las palabras nunca se podrán romper en un kern, salvo que vaya seguido inmediatamente de un pegamento.
@@ -309,4 +309,4 @@ Aunque es posible definir estos comandos mediante un kern negativo, este se pued
 ```tex
 \def\rlap#1{\hbox to 0pt{#1\hss}}
 ```
-Esto funciona ya que al tener anchura 0 pt, la caja siempre se encogerá y dado que el comando `\hss` agrega un pegamento de 0 pt de anchura que se puede encoger infinitamente, de esta manera se puede encoger para que tenga anchura de -5 pt, lo que causa un desplazamiento a la derecha del contenido.
+Esto funciona ya que al tener anchura 0 pt, la caja siempre se encogerá y dado que el comando `\hss` agrega un pegamento de 0 pt de anchura que se puede encoger infinitamente, de esta manera se puede encoger para que tenga anchura negativa, lo que causa un desplazamiento a la derecha del contenido.

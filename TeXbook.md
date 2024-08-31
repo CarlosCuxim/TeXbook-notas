@@ -14,3 +14,4 @@ Estas serán unas notas del $\TeX$book. Este documento servirá de mall para rev
 - [[Capitulo 10]]: Dimensiones
 - [[Capitulo 11]]: Cajas
 - [[Capitulo 12]]: Pegamento
+- [[Capitulo 13]]: Modos

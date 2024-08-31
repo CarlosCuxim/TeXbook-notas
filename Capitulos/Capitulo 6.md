@@ -67,7 +67,7 @@ Una forma de eliminar este error es modificar el valor `\hbadness`, el cual indi
 
 ---
 Finalmente, cuando ocurre un error, un mensaje como el siguiente puede aparecer en la terminal o el `.log`:
-```tex
+```log
 ! <Tipo de error>
 l.x <Parte antes del error>
 		<Parte despues del error>
@@ -77,7 +77,7 @@ l.x <Parte antes del error>
 Existen varios tipos de errores como `! Undefined control sequence` que aparece cuando se coloca un comando sin definir (o un comando que fue escrito incorrectamente).
 
 Después de la descripción del error podemos hacer ciertas acciones para arreglarlo o ignorarlo. Por ejemplo, si escribimos `?` y después presionamos `⏎` tendremos un mensaje como el siguiente:
-```tex
+```log
 Type <return> to proceed, S to scroll future error messages,
 R to run without stopping, Q to run quietly,
 I to insert something, E to edit your file,
