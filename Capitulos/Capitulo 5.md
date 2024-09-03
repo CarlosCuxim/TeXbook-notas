@@ -1,4 +1,5 @@
 # Agrupamiento
+
 Los caracteres `{` y `}` tienen una función especial en $\TeX$. Estos permiten crear “bloques” donde los comandos tiene un efecto local. También puede ser usado para romper ligaturas, para evitar que los espacios consecutivos se combinen o que se eliminen después de un comando.
 
 Sin embargo, el uso principal en $\TeX$ es para delimitar el argumento de algunos comandos. Por ejemplo, el comando:

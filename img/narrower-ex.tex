@@ -1,0 +1,29 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+\newdimen\bwidth \bwidth=240pt
+\def\smallskip{\vskip \smallskipamount}
+
+\begin{document}
+\edef\saveparindent{\the\parindent}%
+
+\fbox{\begin{minipage}{\bwidth}\parindent=\saveparindent
+This paragraph comes before the narrower paragraph to see a normal paragraph.
+
+{\narrower\smallskip\noindent
+This paragraph will have narrower lines
+than the surrounding paragraphs do, because it
+uses the ``narrower'' feature of plain \TeX.
+The former margins will be restored after
+this group ends.\smallskip}
+
+This paragraph comes after the narrower paragraph to see a normal paragraph.
+\end{minipage}}
+\end{document}

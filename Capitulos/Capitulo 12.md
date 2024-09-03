@@ -1,4 +1,5 @@
 # Pegamento
+
 Además de las cajas, $\TeX$ maneja con otro elemento llamado “pegamento”. Este es el espacio que une a las cajas. La principal diferencia con respecto a las cajas es que el pegamento se puede estirar y encoger.
 
 El pegamento tiene tres valores importantes: *espacio*, *encogimiento* y *estiramiento*. Por ejemplo consideremos la siguiente imagen:
@@ -139,6 +140,8 @@ Se puede ver como un espacio entre palabras normal es de 3.33333 pt con estirami
 >Un `\kern` es como un pegamento, solo que no se estira ni encoge. Además las palabras nunca se podrán romper en un kern, salvo que vaya seguido inmediatamente de un pegamento.
 
 ---
+## Factor de espacio
+
 $\TeX$ tiene unas reglas muy precisas de cuanto espacio agregar, esto es lo que permite que haya más espacio después de un signo de puntuación y que este cambia dependiendo del carácter previo.
 
 Cuando $\TeX$ está procesando una lista horizontal de cajas y pegamentos, este revisa un valor llamado  “factor de espacio”. Normalmente este valor es 1000, lo que significa que el espacio entre palabras no es modificado.
@@ -172,6 +175,8 @@ hacen a el paréntesis derecho “transparente” al factor de espacio, mientras
 Cuando una ligatura se forma, o cuando se inserta un carácter especial usando `\char`, el factor de espacio des calculado de los caracteres individuales que generan esa ligadura. Por ejemplo, plain $\TeX$ asigna a `'` un factor de espacio de 0, por lo que la ligatura `''` también tendrá factor de espacio de 0 a pesar de que el carácter en la posición '042 (que es donde el carácter de la ligatura se sitúa) no tenga factor de espaciado 0.
 
 ---
+## Algoritmo de encogido y estirado
+
 El algoritmo que usa $\TeX$ para determinar el espacio que un pegamento tomará en una caja horizontal es el siguiente: 
 - La anchura natural $x$ de la caja es determinada al agregar todas las anchuras de las cajas, kerns y la anchura natural de todos los pegamentos dentro de la caja.
 - Se calcula el total de estiramiento $y_0 +y_1\,\text{fil} +y_2\,\text{fill} +y_3\,\text{filll}$ y encogimiento $z_0 +z_1\,\text{fil} +z_2\,\text{fill} + z_3\,\text{filll}$ de los pegamentos dentro de la caja.
@@ -186,7 +191,9 @@ El algoritmo que usa $\TeX$ para determinar el espacio que un pegamento tomará 
 >El estirado y encogido solo ocurre cuando el pegamento tiene el mayor orden de infinito que no se cancela. De este modo, un pegamento de estirado finito no se estirará si en la misma caja hay un pegamento de estirado infinito.
 
 ---
-$\TeX$ puede construir una caja de anchura dada si se usa el comando `\hbox to`⟨_dimen_⟩`{`⟨_content of box_⟩`}` donde ⟨_dimen_⟩ será la anchura exacta de la nueva caja. Por ejemplo el comando `\line` es una abreviación de ```
+## Cajas horizontales
+
+$\TeX$ puede construir una caja de anchura dada si se usa el comando `\hbox to`⟨_dimen_⟩`{`⟨_content of box_⟩`}` donde ⟨_dimen_⟩ será la anchura exacta de la nueva caja. Por ejemplo el comando `\line` es una abreviación de 
 ```tex
 \hbox to\hsize
 ```
@@ -199,6 +206,8 @@ Finalmente, si quieres una caja cuya anchura sea la natural, basta con usar `\hb
 En todos los casos, la línea base de una caja horizontal construida es la línea base en común de su contenido (en el caso de que no hayan sido alzados o bajados). La altura y profundidad son la mayor distancia por arriba y por abajo (con respecto a la línea base) que alcanzan la cajas que lo componen. Por ende, el resultado de una `\hbox` nunca tiene altura o profundidad negativa, sin embargo puede tener anchura negativa.
 
 ---
+## Cajas verticales
+
 $\TeX$ coloca las cajas verticales de manera similar a las horizontales, sin embargo este difiere en que la colocación usualmente es de tal manera que las líneas base siempre están a una distancia fija una de otras.
 
 Esto se logra mediante tres primitivas llamadas `\baselineskip`, `\linesip` y `\lineskiplimit`. La sintaxis es la siguiente:

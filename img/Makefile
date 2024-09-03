@@ -10,7 +10,7 @@ FLAGS=--pdf
 	latexmk -pdf -interaction=nonstopmode $<
 
 clean-tex:
-	rm -f *.aux *.fdb_latexmk *.fls *.log
+	rm -f *.aux *.fdb_latexmk *.fls *.log *.synctex.gz
 
 clean-pdf:
 	rm -f *.pdf

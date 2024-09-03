@@ -1,0 +1,26 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+\newdimen\bwidth \bwidth=240pt
+
+
+\begin{document}
+\edef\saveparindent{\the\parindent}%
+
+\fbox{\begin{minipage}{\bwidth}\parindent=\saveparindent
+    \smallskip
+    Roses are red,\par
+    \quad Violets are blue;\par
+    Rhymes can be typeset\par
+    \quad With boxes and glue.\par
+    \smallskip
+\end{minipage}}
+
+\end{document}

@@ -1,4 +1,5 @@
 # Los caracteres que escribes
+
 $\TeX$ puede manejar 256 caracteres. Algunos cumplen un papel especial en el programa por lo que para acceder a ellos es necesario usar comandos. Uno de estos comandos es `\char`, la sintaxis es la siguiente:
 > [!sintaxis]
 > `\char`⟨_number_⟩
@@ -18,7 +19,7 @@ De este modo `\char'37` y `\char"1F` tendrán el mismo significado que `\char31`
 Otra forma de expresar ⟨_number_⟩ es mediante los mismos caracteres. Si el token `` ` ``$_{12}$ precede a un carácter o un comando de un solo carácter, este expresará el código de ese carácter. Por ejemplo ``\char`b`` y ``\char`\b`` tendrá el mismo significa que `\char98`.
 
 >[!nota]
-> La importancia de la segunda notación es para los caracteres que tienen un significado especial, como `\%`.
+> La importancia de la segunda notación es para los caracteres que tienen un significado especial, como `%`.
 
 ---
 Aunque se puede definir comandos que devuelvan un carácter específico mediante el comando `\def`, $\TeX$ tiene un comando específico para esta función. Este es el comando `\chardef`, la sintaxis es la siguiente:
@@ -44,14 +45,16 @@ es equivalente a `\p`.
 La notación anterior permite obtener caracteres de código 0 a 127, sin embargo también existe una manera de obtener el resto de caracteres. Si `^^` es seguido de un par de dígitos hexadecimales (en minúscula), entonces esto representará el carácter del código respectivo. Por ejemplo `^^6e` es equivalente a `n`.
 
 ---
+## Estados de lectura
+
 $\TeX$ tiene unas reglas muy específicas en como convierte los caracteres que se escriben en tokens. Estas reglas determinan que varios espacios en blanco se combinen en uno solo, que se omitan después de un comando o para aplicar la notación `^^`.
 
 En primer lugar, $\TeX$ lee el texto de un archivo o la entrada desde la terminal como una sucesión de líneas. En el caso de un archivo, las líneas son obtenidas al usar el carácter `⏎` como separador.
 
 De igual forma, en cada momento, $\TeX$ estará en alguno de los siguientes estados de lectura:
-- Estado $N$: inicio de línea
-- Estado $M$: mitad de línea
-- Estado $S$: saltado de espacios.
+- **Estado $N$:** inicio de línea
+- **Estado $M$:** mitad de línea
+- **Estado $S$:** saltado de espacios.
 
 Al inicio de cada línea $\TeX$ estará en estado $N$, sin embargo la mayor parte de tiempo estará en estado $M$ y después de un espacio o palabra de control estará en estado $S$. Estos estados determinarán el comportamiento de algunos caracteres como `␣` o `⏎`.
 

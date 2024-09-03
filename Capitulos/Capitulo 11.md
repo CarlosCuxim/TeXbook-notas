@@ -1,4 +1,5 @@
 # Cajas
+
 La manera en la que $\TeX$ crea documentos es mediante una estructura llamada “caja”. Estos son objetos bidimensionales con forma rectangular y tienen tres medidas asociadas: *altura*, *anchura* y *profundidad*.
 
 >[!imagen]

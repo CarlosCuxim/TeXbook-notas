@@ -1,4 +1,5 @@
 # Las fuentes roman de $\TeX$
+
 $\TeX$ tiene varias fuentes incorporadas. La fuente por defecto es “Modern Computer Roman”, esta contiene los siguientes símbolos:
 - Letras de la “A” a la “Z” y de la “a” a la “z”.
 - Los dígitos “0” a “9”.
@@ -13,22 +14,22 @@ Para acceder al resto de caracteres visibles de [[ASCII]], para el resto hay que
 - El carácter " funciona, pero es más aconsejable usar la ligatura `''`.
 
 $\TeX$ también puede manejar algunos tipos de acentos mediante secuencias de control, estos son:
-- Acento grave: `` \`o `` para ò.
-- Acento agudo: `\'o` para ó.
-- Acento circunflejo: `\^o` para ô
-- Diéresis: `\"o` para ö.
-- Virgulilla: `\~o` para õ.
-- Macrón: `\=o` para ō.
-- Acento punto: `\.o` para ȯ.
-- Acento breve: `\u o` para ŏ.
-- Carón: `\v o` para ǒ.
-- Doble acento agudo: `\H o` para ő.
-- Barra de corbata: `\t oo` para o͡o.
+- **Acento grave:** `` \`o `` para ò.
+- **Acento agudo:** `\'o` para ó.
+- **Acento circunflejo:** `\^o` para ô
+- **Diéresis:** `\"o` para ö.
+- **Virgulilla:** `\~o` para õ.
+- **Macrón:** `\=o` para ō.
+- **Acento punto:** `\.o` para ȯ.
+- **Acento breve:** `\u o` para ŏ.
+- **Carón:** `\v o` para ǒ.
+- **Doble acento agudo:** `\H o` para ő.
+- **Barra de corbata:** `\t oo` para o͡o.
 
 También, $\TeX$ proporciona tres tipos de acentos que van debajo:
-- Cedilla: `\c o` para o̧.
-- Punto inferior: `\d o` para ọ
-- Macrón suscrito: `\b o` para o̱
+- **Cedilla:** `\c o` para o̧.
+- **Punto inferior:** `\d o` para ọ
+- **Macrón suscrito:** `\b o` para o̱
 
 Por último, $\TeX$ contiene algunas combinaciones de letras y letras especiales:
 - `\oe` y `\OE` para œ y Œ.

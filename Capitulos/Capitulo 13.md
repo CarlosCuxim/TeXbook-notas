@@ -1,4 +1,5 @@
 # Modos
+
 En $\TeX$ existen 6 diferentes modos, dependiendo de como se colocarán las cajas, estos son:
 - **Modo vertical.** Cuando se construye la lista vertical principal, de la cual las se derivan las páginas de salida.
 - **Modo vertical interno.** Cuando se construye una lista vertical para una `\vbox` (o `\vtop`).
