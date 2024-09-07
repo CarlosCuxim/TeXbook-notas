@@ -3,7 +3,7 @@
 Además de las cajas, $\TeX$ maneja con otro elemento llamado “pegamento”. Este es el espacio que une a las cajas. La principal diferencia con respecto a las cajas es que el pegamento se puede estirar y encoger.
 
 El pegamento tiene tres valores importantes: *espacio*, *encogimiento* y *estiramiento*. Por ejemplo consideremos la siguiente imagen:
->[!imagen]
+>[!example] Imagen
 >![[glue-ex-1.svg|540]]
 
 Se puede ver cuatro cajas unido por tres pegamentos. Dado que la longitud natural (anchura de las cajas más el espacio de los pegamentos) es igual a 52 (anchura de la caja), entonces los pegamentos permanecen inalterados. 
@@ -15,7 +15,7 @@ Sin embargo si queremos que la caja tenga una anchura de 58, los pegamentos se t
 4. Se suma este factor de estiramiento al espacio de cada pegamento.
 
 De esta forma, el ejemplo anterior quedaría como:
->[!imagen]
+>[!example] Imagen
 >![[glue-ex-2.svg|600]]
 
 Si la caja tiene una anchura menor que la longitud natural, el proceso se hará de la misma forma, a excepción de que se usaran los valores de encogimiento y al final se restará al espacio de cada pegamento.
@@ -31,7 +31,7 @@ $\TeX$ tiene varios pegamentos definidos. Estos son `\smallskip`, `\medskip` y `
 
 ---
 Los pegamentos horizontales y verticales se incluyen mediante los comando `\hskip`⟨_glue_⟩ y `vskip`⟨_glue_⟩, respectivamente, donde ⟨_glue_⟩ es una unidad definida como:
-> [!sintaxis]
+> [!abstract] Sintaxis
 > ⟨_dimen_⟩ `plus` ⟨_dimen_⟩ `minus`⟨_dimen_⟩
 
 Los valores `plus` ⟨_dimen_⟩ y  `minus`⟨_dimen_⟩ son parámetros opcionales, el primer ⟨_dimen_⟩ siempre debe agregarse (aunque el valor sea cero) y en los otros dos se asume que ⟨_dimen_⟩ es cero si no se está presente. Por ejemplo `\medskip` está definido como
@@ -64,7 +64,8 @@ Algunos ejemplos de estos comandos se pueden ver en el siguiente código, estos 
 \line{Some text flush left\hfil and some flush right.} \line{Alpha\hfil centered between Alpha and Omega\hfil Omega}
 \line{Five\hfil words\hfil equally\hfil spaced\hfil out.}
 ```
->[!imagen]
+se debería ver como:
+>[!example] Imagen
 >![[hfil-ex.svg|600]]
 
 Es posible crear pegamentos propios que se estiren o encojan infinitamente. Para ello se utilizan unas unidades especiales, que puede ser usada en`plus` ⟨_dimen_⟩ o `minus`⟨_dimen_⟩, llamadas `fil`, `fill` y `filll`. Por ejemplo, los comandos `\vfil`, `\vfill`, `\vss` y `\vfilneg` son respectivamente equivalentes a los siguientes pegamentos:
@@ -83,7 +84,7 @@ Asimismo, se puede usar múltiplos fraccionales de las unidades `fil`, `fill` y 
 $\TeX$ tiene una regla especial con respecto al final de las oraciones: este agrega un poco más de espacio, así como incrementar su estiramiento y reducir su encogimiento, después de un signo de puntuación. Esto con el fin de mejorar la lectura.
 
 Por ejemplo, considera la frase: ``` ``Oh oh!'' cried Baby Sally. Dick and Jane laughed. ```, este se renderizará, en su anchura natural y siendo estirado 5 pt, 10 pt, 15 pt y 20 pt, respectivamente, como: 
->[!imagen]
+>[!example] Imagen
 >![[colon-strech.svg|600]]
 
 Específicamente, el pegamento después de una coma se estira 1.5 veces más que un espacio normal (el que hay entre palabras) y se encoge 0.8 veces el espacio normal, mientras que el espacio después de punto, signo de exclamación o interrogación,  se estira 3 veces más que un espacio normal y se encoge 0.3 veces el espacio normal. No hay pegamento entre letras adyacentes, por lo que las palabras individuales permanecen inalteradas.
@@ -211,7 +212,7 @@ En todos los casos, la línea base de una caja horizontal construida es la líne
 $\TeX$ coloca las cajas verticales de manera similar a las horizontales, sin embargo este difiere en que la colocación usualmente es de tal manera que las líneas base siempre están a una distancia fija una de otras.
 
 Esto se logra mediante tres primitivas llamadas `\baselineskip`, `\linesip` y `\lineskiplimit`. La sintaxis es la siguiente:
->[!sintaxis]
+>[!abstract] Sintaxis
 >`\baselineskip=`⟨_glue_⟩
 >`\lineskip=`⟨_glue_⟩
 >`\lineskiplimit=`⟨_dimen_⟩
@@ -221,11 +222,11 @@ Cada vez que una caja es agregada a la lista vertical, $\TeX$ agrega un “pegam
 Las reglas para el pegamento de interlineado son llevadas a cabo sin tener en cuenta otros tipos de pegamento que podrían estar presentes. Es decir, todo el espacio vertical dado por una aparición explícita de `\vskip` y `\kern` actual independiente al pegamento de interlineado. De este modo, un `\smallskip` entre dos líneas siempre separa sus líneas base más que de lo que usualmente estarían, por una cantidad de un `\smallskip`, este comando no afecta la decisión acerca de cuando el pegamento `\lineskip` será usado entre esas líneas.
 
 Por ejemplo, supongamos que `\baselineskip=12pt plus 2pt`, `\lineskip=3pt minus 1pt` y `\lineskiplimit=2pt`. Además, supongamos que una caja cuya profundidad es de 3 pt fue la más recientemente agregada a la lista vertical actual. Estamos a punto de agregar una nueva caja cuya altura es $h$. Si $h = 5\,\text{pt}$, el pegamento de interlineado será de `4pt plus 2pt`, ya que eso hará que las líneas base estén alejadas `12pt plus 2pt`  cuando agreguemos $h$ y la profundidad anterior al pegamento de interlineado.
-> [!imagen]
+> [!example] Imagen
 > ![[vbox-ex-1.svg|600]]
 
 Sin embargo, si $h=8\,\text{pt}$, el pegamento de interlineado será 3 pt minus 1 pt, dado que `\lineskip` será usado como pegamento de interlineado. Ya que en caso contrario, el pegamento de interlineado, ignorando el estirado y encogido, sería de $1\,\text{pt}= 12\,\text{pt}-3\,\text{pt}-8\,\text{pt}$, que es menor que `\lineskiplimit`.
-> [!imagen]
+> [!example] Imagen
 > ![[vbox-ex-2.svg|600]]
 
 >[!nota]
@@ -297,7 +298,7 @@ Existe otro comando para generar cajas verticales. Este comando es `\vtop` el cu
 \hbox{Here are \vtop{\hbox{two lines}\hbox{of text.}}}
 ```
 producirá el siguiente resultado:
->[!imagen]
+>[!example] Imagen
 >![[vtop-ex.svg|400]]
 
 También se puede usar las sintaxis `\vtop to`⟨_dimen_⟩`{`⟨_content of box_⟩`}` y `\vtop spread`⟨_dimen_⟩`{`⟨_content of box_⟩`}`. Sin embargo, la forma exacta en la que funciona `\vtop` es la siguiente

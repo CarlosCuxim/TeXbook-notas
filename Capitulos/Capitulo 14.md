@@ -63,7 +63,7 @@ Rhimes can be typeset
 \smallskip}
 ```
 se debería ver como:
->[!imagen]
+>[!example] Imagen
 >![[obeylines-ex.svg|600]]
 
 ---
@@ -89,7 +89,7 @@ Los últimos 5 elementos (pegamento, kern, penalti y elemento matemáticos) son 
 ### Quiebres discrecionales
 
 En primer lugar, un quiebre discrecional consiste en tres secuencias de caracteres, llamados textos de *pre-quiebre*, *pos-quiebre* y *no-quiebre*. La idea es que si un salto de página ocurre en ese punto, el texto de pre-quiebre aparecerá al final de la línea, mientras que el texto de pos-quiebre aparecerá al inicio de la siguiente línea. En el caso de que un salto de línea ocurra, el texto de no-quiebre será el que aparezca en su lugar. El usuario puede especificar un quiebre discrecional mediante la siguiente sintaxis
-> [!sintaxis]
+> [!abstract] Sintaxis
 > `\discretionary{`⟨_pre-break text_⟩`}{`⟨_post-break text_⟩`}{`⟨_no break text_⟩`}`
 
 donde los textos pueden ser caracteres, cajas y kerns.
@@ -238,7 +238,7 @@ d &= (l+b)^2 + p^2 + \texttt{\\adjdemerits} \\
 $$
 Similarmente el punto `@@3` presenta una una forma distinta de construir la segunda línea desde `@@1` con deméritos $d=1225$. El siguiente punto factible es `@@4` que puede iniciar en `@@2`, con deméritos $d = 12621$, o iniciar en `@@3`, con deméritos $d=103101$. Procediendo análogamente con todos los puntos de quiebre, es posible crear el siguiente grafo acíclico dirigido:
 
->[!gráfico]
+>[!example] Gráfico
 > ```mermaid
 > flowchart TD
 > 	BP0[@@0]
@@ -319,7 +319,7 @@ this group ends.\smallskip}
 This paragraph comes after the narrower paragraph to see a normal paragraph.
 ```
 se debería ver como:
->[!imagen]
+>[!example] Imagen
 >![[narrower-ex.svg|600]]
 
 Es importante terminar el párrafo antes de terminar el grupo ya que en caso contrario el efecto de `\narrower` desaparecerá antes de que $\TeX$ empiece a elegir puntos de quiebre. En el ejemplo anterior el segundo `\smallskip` sirve para terminar el párrafo.
@@ -334,3 +334,162 @@ La única excepción a esta regla es la sangría, este usará el valor de `\pari
 Algo similar pasa con algunos penaltis que se agregan en modo matemático, ya que el valor que se usará será el que esté al final de esa fórmula matemática en concreto.
 
 ---
+Además de `\leftkip`d y `\rightskip`, es posible tener un control más fino de la longitud de las líneas. Esto es posible mediante el comando `\parshape`, la sintaxis es la siguiente:
+>[!abstract] Sintaxis
+>`\parshape`⟨_number_⟩⟨_dimension 1_⟩…⟨_dimension 2n_⟩
+>`\parshape`⟨_$n$_⟩⟨_$i_1$_⟩⟨_$l_1$_⟩⟨_$i_2$_⟩⟨_$l_2$_⟩…⟨_$i_n$_⟩⟨_$l_n$_⟩
+
+Este comando, especifica un párrafo cuyas primeras $n$ filas tendrán longitudes $l_1,l_2,\ldots,l_n$, respectivamente, y tendrán una sangría de $i_1,i_2,\ldots,i_n$ por la izquierda, respectivamente.
+
+Si el párrafo tiene menos de $n$ filas, especificaciones adicionales serán ignoradas. Mientras que si tiene más de $n$ filas, la especificación para la fila $n$ será repetida al infinito. Finalmente, es posible cancelar el efecto de un `\parshape` simplemente escribiendo `\parshape=0`. Por ejemplo, consideremos el siguiente código:
+```tex
+This paragraph comes before the parshape paragraph to see a normal paragraph.
+
+{\smallskip
+\parshape=7 70pt 80pt 60pt 100pt 50pt 120pt 40pt 140pt 30pt 160pt 20pt 180pt 10pt 200pt
+\parfillskip=0pt \noindent
+I turn, in the following treatises, to various uses of those triangles whose generator is unity. But i leave out many more than I included; it is extraordinary how fertile in properties this triangle is. Everyone can try his hand.\smallskip}
+
+This paragraph comes after the parshape paragraph to see a normal paragraph.
+```
+se debería ver como:
+>[!example] Imagen
+>![[parshape-ex.svg|600]]
+
+---
+Además de `\parshape`, existen dos comando llamados `\hangindent` y `\hangafter` que permiten modificar de manera más concisa las sangrías. El comando `\hangindent`⟨_dimen_⟩ especifica la llamada “sangría francesa”, mientras que `\hangafter`⟨_number_⟩ especifica la duración de esa sangría.
+
+La idea es que, si $x$ y $n$ son los valores de `\hangindent` y `\hangafter`, respectivamente, y $h$ es el valor de `\hsize`, entonces:
+- Si $n\geq0$ la sangría francesa ocurrirá en las líneas $n+1, n+2, \ldots$ del párrafo.
+- Si $n<0$ la sangría francesa ocurrirá en las líneas $1, 2, \ldots, \lvert n \rvert$.
+
+Donde la sangría francesa significa que las líneas tendrán una anchura de $h - \lvert x\rvert$ en vez de su anchura natural $h$, además de que se agregará una sangría a la izquierda si $x \geq 0$, mientras que se agregará una sangría a la derecha en el caso que $x<0$. Por ejemplo, consideremos el siguiente código:
+```tex
+This paragraph comes before the hanging indentation paragraph to see a normal paragraph.
+
+{\smallskip
+\hangindent=-30pt  \hangafter=-2
+\noindent This first paragraph should have a hanging indentation of 30pt at the right of the first two lines. The rest of this paragraph is only dummy text to see the full effect of the command. Nothing interesting.
+\smallskip}
+
+{\smallskip
+\hangindent=30pt  \hangafter=2
+\noindent This second paragraph should have a hanging indentation of 30pt at the left of the last two lines. The rest of this paragraph is only dummy text to see the full effect of the command. Nothing interesting.
+\smallskip}
+
+This paragraph comes after the hanging indentation paragraph to see a normal paragraph.
+```
+se debería ver como:
+>[!example] Imagen
+>![[hangindent-ex.svg|600]]
+
+---
+$\TeX$ usa la sangría colgante en el comando `\item` el cual produce un párrafo en el cual cada línea tiene la misma sangría que un `\indent` normal. Además, `\item` toma un parámetro que es colocado en la posición de la sangría de la primera fila. Otro comando llamado `\itemitem` hace lo mismo, pero con el doble de sangría. Por ejemplo el código:
+```tex
+\item{1.} This is the first of several cases that are being
+enumerated, with hanging indentation applied to entire paragraphs.
+\itemitem{a)} This is the first subcase.
+\itemitem{b)} And this is the second subcase. Notice
+that subcases have twice as much hanging indentation.
+\item{2.} The second case is similar.
+```
+se debería ver como:
+>[!example] Imagen
+>![[item-ex.svg|600]]
+
+>[!nota]
+>No es necesario colocar espacios entre los elementos enumerados, ya que el comando `\item` agrega un `\par` al inicio.
+
+---
+Si `\parshape` y la sangría francesa han sido especificados a la vez, entonces `\parshape` será tomado en cuenta, mientras que `\hangindent` será ignorado. 
+
+Para restaurar los valores normales de un párrafo basta con definir `\parshape=0`, `\hangindent=0pt` y `\hangafter=1`. Por defecto, estos valores son restaurados a sus valores normales al final de cada párrafo y (por definiciones locales) cada vez que se entra en modo vertical interno. Por ejemplo, una sangría francesa que esté presente fuera de una construcción `\vbox` no va a aplicarse dentro de esa vbox, a menos que se indique dentro de esta.
+
+En el caso de que una fórmula visualizada esté presente en un párrafo con una forma no estándar, $\TeX$ siempre asumirá que la fórmula ocupa exactamente tres líneas. De este modo, un párrafo que tiene cuatro líneas de texto, luego una fórmula visualizada y después dos líneas más de texto, es considerado como un párrafo de $4+3+2=9$ líneas de largo. La ecuación visualizada será sangrada y centrada usando la información de la forma del párrafo apropiada a la línea 6 (la de en medio de las líneas que ocupa).
+
+También, $\TeX$ tiene una variable entera interna llamada `\prevgraf` que guarda el número de líneas del más reciente párrafo que ha sido completo o parcialmente completo. Es posible usar `\prevgraf` como un ⟨_number_⟩, así como cambiar su valor (a un entero no negativo) en cualquier momento, lo que causa que $\TeX$ piense que esté en la misma fila que el valor de `\prevgraf`.
+
+Por ejemplo, consideremos el ejemplo anterior de 4 filas de texto, una formula visualizada y otras dos filas más de texto. Cuando $\TeX$ inicia un nuevo párrafo se establece `\prevgraf=0`, al momento de iniciar la fórmula visualizada `\prevgraf` será 4. Cuando la fórmula termina, `\prevgraf` será de 7 y cuando el párrafo termina `\prevgraf` será de 9.  Si por algún motivo la fórmula tiene la altura de 4 líneas de texto, escribir `\prevgraf=8` al final de esta fórmula le hará pensar $\TeX$ que la siguiente línea después de la fórmula es la número 8 y que el párrafo tendrá 10 filas en total.
+
+El valor de `\prevgraf` afecta a los saltos de línea solo cuando $\TeX$ está lidiando con un `\parshape` o `\hangindent` no convencional.
+
+---
+Existe una característica más que afecta al algoritmo de saltos de línea, esta es llamada “soltura”. Este se utiliza mediante el comando `\looseness`, la idea es que si escribimos `\looseness=1` entonces $\TeX$ tratará de hacer el párrafo una línea más larga que su longitud óptima, siempre que exista una sucesión de puntos de quiebre que no exceda la tolerancia establecida para el badness de las líneas.
+
+También es posible indicarle un número negativo para reducir el número de líneas. Por lo que `\looseness=-1` hará que el párrafo tenga una línea menos, siempre que exista una sucesión de puntos de quiebre que lo permita.
+
+La idea general es que si la sucesión de puntos óptima produce un párrafo con $n$ líneas y el valor actual de `\looseness` es $l$, entonces $\TeX$ elegirá los puntos de quiebre de tal manera que el total de líneas final sea lo más cercano a $n+l$, sin exceder la tolerancia actual. Más aún, de entre las sucesiones que permitan el número de líneas deseado (o el más cercano posible), se elegirá el que tenga el menor número de deméritos.
+
+Esto puede servir para eliminar alguna línea extra que sea tan corta que se vuelva antiestética o incrementar el número de líneas para que tenga una longitud (o paridad) deseada, como en el caso que se esté trabajando con dos columnas.
+
+Por defecto, $\TeX$ restaura el valor de `\looseness` al mismo tiempo que `\hangindent`, `\hangafter` y `\parshape`.
+
+---
+Justo antes de cambiar a modo horizontal para empezar a escanear un párrafo, $\TeX$ agrega el un pegamento especificado por `\parskip` en la lista vertical que contiene ese párrafo, a menos que la lista vertical esté vacía en ese momento.
+
+Por ejemplo `\parskip=3pt` hará que 3 pt extra de espacio sea colocado entre párrafos. Por defecto $\TeX$ define `\parskip=0pt plus1pt`, lo que le da un poco de estiramiento, pero no espacio.
+
+---
+Justo después de que los saltos de línea hayan sido completados, $\TeX$ agrega las líneas a la lista vertical actual que encierra el párrafo actual, agregando el pegamento de interlineado correspondiente, el cual depende de los valores de `\baselineskip`, `\lineskip` y `\lineskiplimit` que estén presentes en ese momento.
+
+De igual manera, en ese momento se agregarán los penaltis correspondientes antes de cada pegamento para ayudar al algoritmo de saltos de página. Por ejemplo, un penalti especial es colocado entre las primeras dos líneas de un párrafo o justo antes de la última línea, de tal manera que no quede una línea “huérfana” al inicio o final de la página, a menos que la alternativa sea peor.
+
+Los penaltis de entre las líneas son calculados de la siguiente manera: Supongamos que $\TeX$ ya ha elegido los saltos de página para un párrafo, o para un párrafo parcial que preceda una ecuación visualizada y que $n$ líneas ya hayan sido formadas. El penalty entre las líneas $j$ y $j+1$, donde $j$ está en el rango de $1 \leq j < n$ será de `\interlinepenalty` más un extra que será agregado en casos especiales:
+- `\clubpenalty` será agregado si $j=1$, es decir, justo después de la primera línea.
+- `\displaywidowpenalty` o `\widowpenalty` es agregado si $j=n-1$, es decir, justo antes de la última línea, dependiendo de si ésta precede o no a una ecuación visualizada.
+- `\brokenpenalty` es agregado si la $j$-ésima línea termina con un quiebre discrecional.
+
+Por defecto $\TeX$ define `\clubpenalty=150`, `\widowpenalty=150`, `\displaywidowpenalty=50` y `\brokenpenalty=100`. El valor de `\interlinepenalty` es normalmente cero, pero es incrementado en 100 dentro de los pie de página, por lo que pies de página muy grandes no tenderán a separarse entre páginas.
+
+---
+Es posible forzar el modo vertical dentro de un párrafo. Esto se logra mediante el comando `\vadjust{`⟨_vertical mode material_⟩`}`, lo que causará que se entre al modo vertical interno para insertar el material especificado en la lista vertical que contiene el párrafo inmediatamente después de la línea que contenga el `\vadjust`.
+
+Por ejemplo, se puede colocar `\vadjust{\kern1pt}` para incrementar la cantidad de espacio entre dos líneas de un párrafo. De igual manera, se puede forzar un salto de página inmediatamente después de una cierta línea mediante `\vadjust{\eject}`.
+
+Capítulos posteriores explican otros comandos similares, como `\insert` o `\mark`, los cuales son usados en el algoritmo de creación de páginas de $\TeX$. Si tales comandos aparecen en un párrafo, estos son removidos de la línea horizontal que lo contiene y colocados en la lista vertical junto con cualquier otro material vertical del comando `\vadjust` que podría estar presente.
+
+En la lista vertical final, cada línea horizontal de texto es un hbox que está inmediatamente precedido del pegamento de interlineado e inmediatamente seguido por el material vertical que fue “migrado” de esa línea, con el orden de izquierda a derecha preservado de su orden de aparición, en el caso que haya varios. Luego viene el penalti de interlineado, en el caso que se distinto de cero. El material vertical insertado no influye en el pegamento de interlineado.
+
+---
+Existe una manera de introducir material a cada uno de los párrafos que $\TeX$ construye. Esto se logra mediante el comando `\everypar{`⟨_token list_⟩`}`. Cada vez que se entra en modo horizontal, se leerán los tokens en `\everypar` y los agregará antes del párrafo.
+
+Por ejemplo, si se escribe `\everypar={A}`, cuando se escriba `B` en el modo vertical, $\TeX$ cambiará al modo horizontal (después de haber agregado el pegamento `\parskip` a la página actual), se agregará una caja vacía de tamaño `\parindent` para luego leer `AB`, ya que se leerá los tokens en `\everypar` antes del `B`.
+
+Un párrafo de cero líneas es conseguido si se agrega `\noindent\par`. Si `\everypar` está vacío, tal párrafo contribuye en nada a excepción del pegamento `\parskip` a la lista vertical actual.
+
+---
+El algoritmo de $\TeX$ es bastante flexible. Un ejemplo podría ser para colocar firmas a la derecha y que estas se queden en el misma línea en la que termina el texto, si hay espacio, o en caso contrario, que hagan un salto de línea. Por ejemplo, considera el siguiente código:
+```tex
+This is a case where the name and address fit in nicely with the review.
+\signed A. Reviewer (Ann Arbor, Mich.)
+
+\bigskip
+But sometimes an extra linea must be added.
+\signed N. Bourbaki (Paris)
+```
+desearíamos que se viera de la siguiente manera:
+>[!example] Imagen
+>![[sign-cmd-ex.svg|600]]
+
+En este caso deseamos que el comando haga que 2 em como mínimo separe el texto de la firma, en el caso que haya espacio en la misma línea. Una forma de diseñar el comando, sería de la siguiente manera:
+```tex
+\def\signed #1 (#2){{\unskip\nobreak\hfil\penalty50
+  \hskip2em\hbox{}\nobreak\hfil\sl#1\/ \rm(#2)
+  \parfillskip=0pt \finalhyphendemerits=0 \par}}
+```
+El funcionamiento es el siguientes: En primer lugar, el comando `\unskip` elimina cualquier pegamento que venga antes de la firma (como el colocado por el espacio que separa el final del texto y el comando `\signed`). Luego agregamos un `\nobreak\hfil`, lo que crea un pegamento que se estira infinitamente en el que no se puede romper. Después tenemos un `\penalty50`, lo que crea un punto de quiebre con un penalty de valor 50, lo que asegurará que primero se intente que la firma quede en la misma línea que el texto, a menos que el resultado sea peor.
+
+Lo siguiente es un `\hskip2em`, lo que crea el espacio mínimo que debe separar al texto de la firma. Lo siguiente es un `\hbox{}` y un `\nobreak\hfil`, lo que crea una caja vacío y luego un pegamento infinito en el que no se puede romper, lo que causará que la firma esté alineada a la derecha cuando el salto se haya hecho en el `\penalty50`. La existencia de esta caja es para que no se descarte el segundo `\nobreak\hfil` en el caso que el punto de quiebre utilizado sea el del `\penalty50`, en el caso que no exista, tanto el `\hskip2em` como el `\nobreak\hfil` serían eliminados por ser elementos descartables. Finalmente tenemos la firma, con fuente `\sl` y la dirección, entre paréntesis y con fuente `\rm`.
+
+Finalmente. en la última fila del comando tenemos `\parfillskip=0pt`, lo que elimina el pegamento infinito al finalizar el párrafo, lo que asegura que la última línea (el que contiene a la firma) finalice pegada al margen derecho, lo que junto al pegamento infinito dará la alineación derecha de la firma. En el caso de que no estuviera, la firma estaría centrada, con respecto al final del texto más el pegamento de 2 em, si está en la misma línea que el texto, o completamente centrada con respecto a los márgenes, si se hizo en salto de línea en el `\penalty50`. También hace que la línea no se divida en medio de la firma, ya que eso causaría un undefull box. Por último, el `\finalhyphendemerits=0` sirve para que no haya penalización si la penúltima línea termina en guion, lo que también incentiva que la firma esté en la misma fila que el final del texto.
+
+Notemos que $\TeX$ no romperá (salvo una emergencia) en medio de la firma ya que por el `\parfillskip=0pt` causaría que la última fila tenga badness no nulo. De esta manera, solo existen dos resultados que minimizan los deméritos, que no haya un quiebre en el `\penalty50`, que por los `\hfil` hace que la línea tenga badness nulo o la segunda mejor opción, que si haya un quiebre en el `\penalty50`, lo que causará, por los dos `\hfil`, que la última y penúltima fila tengan badness nulo.
+
+---
+Por último, si se desean evitar las cajas overfull a toda costa es posible mediante `\tolerance=10000`, sin embargo esto permite que líneas muy malas sean aceptables en todo tipo de situaciones, inclusive si hay mejores opciones. De hecho, por el algoritmo interno se tenderá a concentrar todo el badness en una sola línea.
+
+De este modo, hay una forma mucho mejor de obtener este resultado: $\TeX$ tiene un parámetro llamado `\emergencystretch`, que es agregado al estiramiento de cada línea cuando el badness y los deméritos son calculados, en el caso que cajas overfull sean inevitables. 
+
+Si `\emergencystretch` es positivo, $\TeX$ hará un tercer paso en un párrafo antes de elegir los puntos de quiebre, en el caso que las primeras pruebas y no encuentren una manera satisfactoria de satisfacer a `\pretolerance` y `\tolerance`.
+
+El efecto de `\emergencystretch` será de reducir proporcionalmente el badness, de tal manera que los infinitos más grandes sean distinguibles de los más pequeños. Al colocar `\emergencystretch` suficientemente alto (basado en el `\hsize`) puedes asegurar que la `\tolerance` es nunca excedida, de este modo, las cajas overfull nunca ocurrirán a menos que la tarea de elegir puntos de quiebre sea verdaderamente imposible.

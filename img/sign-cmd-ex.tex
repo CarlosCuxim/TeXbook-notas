@@ -1,0 +1,28 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+\newdimen\bwidth \bwidth=240pt
+% \def\smallskip{\vskip \smallskipamount}
+
+\def\signed #1 (#2){{\unskip\nobreak\hfil\penalty50
+    \hskip2em\hbox{}\nobreak\hfil\sl#1\/ \rm(#2)
+    \parfillskip=0pt \finalhyphendemerits=0 \par}}
+
+
+\begin{document}
+\fbox{\begin{minipage}{\bwidth}
+    This is a case where the name and address fit in nicely with the review.
+    \signed A. Reviewer (Ann Arbor, Mich.)
+
+    \bigskip
+    But sometimes an extra linea must be added.
+    \signed N. Bourbaki (Paris)
+\end{minipage}}
+\end{document}

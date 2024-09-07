@@ -2,11 +2,11 @@
 
 La manera en la que $\TeX$ crea documentos es mediante una estructura llamada “caja”. Estos son objetos bidimensionales con forma rectangular y tienen tres medidas asociadas: *altura*, *anchura* y *profundidad*.
 
->[!imagen]
+>[!example] Imagen
 > ![[box-info.svg|400]]
 
 Todos los caracteres de una fuente son cajas con sus medidas preestablecidas por la fuente. Sin embargo, la forma de la fuente y su caja podría no coincidir. La corrección itálica (que también es dada por la fuente) indica cuanto más el carácter se pasa de su caja.
->[!imagen]
+>[!example] Imagen
 > ![[g-comp.svg|400]]
 
 Otro tipo de caja que $\TeX$ maneja son las “cajas negras”, que son rectángulos completamente rellenados como $\blacksquare$, aunque usualmente vienen en forma de rectas verticales u horizontales. En este tipo de cajas se puede controlar todas sus dimensiones y se acceden mediante los comandos `\hrule` y `\vrule`.

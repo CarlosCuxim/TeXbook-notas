@@ -3,7 +3,7 @@
 Para usar $\TeX$ haremos uso de las [[Control sequences|secuencias de control]], estos son comandos que se podrán usar mediante un carácter especial llamado [[Catcode#Escape character|carácter de escape]] que usualmente será `\`.
 
 La sintaxis de las secuencias de control (comandos) usualmente será la siguiente
->[!note] Sintaxis
+>[!abstract] Sintaxis
 > ⟨*esc char*⟩⟨*cs name*⟩
 
 donde:

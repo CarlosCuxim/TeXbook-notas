@@ -48,7 +48,7 @@ En plain$\TeX$ no hay diferencia notable entre `\rm` y `\tenrm`. Sin embargo, `\
 
 ---
 Se puede cargar cualquier fuente $\TeX$ siempre que existan los archivos y se tenga su nombre clave. Si estos requisitos se cumple, se puede usar el comando `\font` para cargar y asignar un comando a esa fuente. La sintaxis es la siguiente:
->[!note] Sintaxis
+>[!abstract] Sintaxis
 > `\font`⟨*c. sequence*⟩`=`⟨*font name*⟩ 
 
 Por ejemplo el comando `\ninerm` está definida de la siguiente manera:
@@ -63,7 +63,7 @@ Aquí `cmr9` es el nombre clave para la fuente “Computer Modern Roman de 9pts�
 > Si se quiere usar fuentes modernas, se debe hacer uso de otros “engines” de $\TeX$ como XeTeX o LuaTeX. 
 
 El comando `\font` también permite cambiar el tamaño de la fuente cargada mediante la palabra clave `at`. La sintaxis es la siguiente:
->[!note] Sintaxis
+>[!abstract] Sintaxis
 > `\font`⟨*c. sequence*⟩`=`⟨*font name*⟩` at `⟨*tamaño*⟩
 
 Por ejemplo el siguiente comando:
@@ -74,7 +74,7 @@ carga la fuente “Computer Modern Roman de 5pts” y la estira para que sea de 
 
 Otra forma de modificar el tamaño de una fuente es mediante la palabra clave `scaled` 
 que sirve para escalar una fuente. La sintaxis es la siguiente:\
->[!note] Sintaxis
+>[!abstract] Sintaxis
 > `\font`⟨*c. sequence*⟩`=`⟨*font name*⟩` scaled `⟨*factor de escala*⟩
 
 donde ⟨*factor de escala*⟩ es un entero que representa la escala multiplicada por 1000. Por ejemplo el comando:

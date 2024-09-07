@@ -12,7 +12,7 @@ $\TeX$ puede manejar  varias unidades de medida, estos se identificarán usando 
 - `sp` para el scaled point (65536 sp = 1 pt)
 
 La sintaxis exacta para las dimensiones, que representaremos por ⟨_dimension_⟩, será:
-> [!sintaxis]
+> [!abstract] Sintaxis
 > ⟨_optional sign_⟩⟨_number_⟩⟨_unit of measure_⟩
 > ⟨_optional sign_⟩⟨_digit string_⟩`.`⟨_digit string_⟩⟨_unit of measure_⟩
 

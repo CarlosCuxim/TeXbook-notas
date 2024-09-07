@@ -1,7 +1,7 @@
 # Los caracteres que escribes
 
 $\TeX$ puede manejar 256 caracteres. Algunos cumplen un papel especial en el programa por lo que para acceder a ellos es necesario usar comandos. Uno de estos comandos es `\char`, la sintaxis es la siguiente:
-> [!sintaxis]
+> [!abstract] Sintaxis
 > `\char`⟨_number_⟩
 
 donde Des cualquier número de 0 hasta 255. Esto devolverá el carácter correspondiente a ese número. Por ejemplo `\char98` devolverá `b`.
@@ -23,7 +23,7 @@ Otra forma de expresar ⟨_number_⟩ es mediante los mismos caracteres. Si el t
 
 ---
 Aunque se puede definir comandos que devuelvan un carácter específico mediante el comando `\def`, $\TeX$ tiene un comando específico para esta función. Este es el comando `\chardef`, la sintaxis es la siguiente:
-> [!sintaxis]
+> [!abstract] Sintaxis
 > `\chardef`⟨_control sequence_⟩`=`⟨_number_⟩
 
 Por ejemplo, el comando `\%` está definido como:

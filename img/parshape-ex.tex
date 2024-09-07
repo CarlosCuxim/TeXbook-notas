@@ -1,0 +1,25 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+\newdimen\bwidth \bwidth=240pt
+\def\smallskip{\vskip\smallskipamount}
+
+\begin{document}
+\fbox{\begin{minipage}{\bwidth}\parindent=20pt
+This paragraph comes before the parshape paragraph to see a normal paragraph.
+
+{\smallskip
+\parshape=7 70pt 80pt 60pt 100pt 50pt 120pt 40pt 140pt 30pt 160pt 20pt 180pt 10pt 200pt
+\parfillskip=0pt \noindent
+I turn, in the following treatises, to various uses of those triangles whose generator is unity. But i leave out many more than I included; it is extraordinary how fertile in properties this triangle is. Everyone can try his hand.\smallskip}
+
+This paragraph comes after the parshape paragraph to see a normal paragraph.
+\end{minipage}}
+\end{document}

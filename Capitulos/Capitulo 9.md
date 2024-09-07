@@ -53,7 +53,7 @@ También existen algunos símbolos cuya apariencia no depende de la fuente, dado
 
 ---
 Los acentos en $\TeX$ son construidos mediante la primitiva `\accent`. La sintaxis es la siguiente
->[!sintaxis]
+>[!abstract] Sintaxis
 >`\accent`⟨_number_⟩⟨_character_⟩
 
 donde ⟨_number_⟩ está entre 0 y 255 e indica la posición del acento en la fuente actual. Por ejemplo, el comando `\'` está definido como:

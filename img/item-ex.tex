@@ -1,0 +1,33 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+\newdimen\bwidth \bwidth=240pt
+\def\smallskip{\vskip \smallskipamount}
+
+\newenvironment{TeXlist}
+    {\begin{list}{}{
+        \leftmargin=20pt
+        \parsep=0pt
+        \itemsep=0pt
+        \topsep=0pt}}
+    {\end{list}}
+
+\begin{document}
+\fbox{\begin{minipage}{\bwidth}
+\begin{TeXlist}
+    \item[1.] This is the first of several cases that are being enumerated, with hanging indentation applied to entire paragraphs.
+    \begin{TeXlist}
+        \item[a)] This is the first subcase.
+        \item[b)] And this is the second subcase. Notice that subcases have twice as much hanging indentation.
+    \end{TeXlist}
+    \item[2.] The second case is similar.
+\end{TeXlist}
+\end{minipage}}
+\end{document}

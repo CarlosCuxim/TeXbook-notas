@@ -40,7 +40,7 @@ La manera exacta en como $\TeX$ lee las líneas es mediante los [[Token|tokens]]
 - Una secuencia de comando
 
 Por ejemplo, el texto `{\hskip 36pt}` es convertido en la siguiente lista de tokens: 
->[!ejemplo]
+>[!example] Ejemplo
 >`{`$_1$  &emsp; [`hskip`] &emsp; `3`$_{12}$ &emsp; `6`$_{12}$ &emsp; `␣`$_{10}$ &emsp; `p`$_{11}$ &emsp; `t`$_{12}$ &emsp; `}`$_2$
 
 El token [`hskip`] no tiene un código de categoría ya que es un comando y no un carácter. Además el espacio después de `\hskip` no entra en la lista de tokens ya que los espacios después de los comandos son omitidos.
@@ -83,7 +83,7 @@ que es el el código [[ASCII]] para la barra invertida (\\).
 
 ---
 Otra forma de obtener secuencias de control, además de usar el carácter de escape, es mediante los comandos `\csname` y `\endcsname`. La sintaxis es la siguiente:
->[!sintaxis]
+>[!abstract] Sintaxis
 >`\csname`⟨_char tokens_⟩`\endcsme`
 
 donde ⟨_char tokens_⟩ puede contener:
@@ -106,7 +106,7 @@ generará el extraño comando [`\TeX`], es decir el comando conformado por los 4
 
 ---
 Existen otros comandos que devuelven una lista de tokens. Primero tenemos los comandos `\number` y `\romannumeral` que toman un número y devuelve una lista de tokens de categoría 12 que corresponderá a su notación decimal o en numeración romana.  Su sintaxis es la siguiente
->[!sintaxis]
+>[!abstract] Sintaxis
 >`\number`⟨_number_⟩
 >`\romannumeral`⟨_number_⟩
 
@@ -117,7 +117,7 @@ Por ejemplo, `\number124` y `\romannumeral124` devolverá `124` y `xxiv`, respec
 Aunque el primer comando pareciera redundante, este elimina los ceros a la izquierda. De este modo `\number-0015` devolverá `-15`.
 
 Otro ejemplo son los comandos gemelos `\uppercase` y `\lowercase` que toman una lista de tokens y las convierte en su forma mayúscula y minúscula, respectivamente. La sintaxis es la siguiente:
->[!sintaxis]
+>[!abstract] Sintaxis
 >`\uppercase{`⟨_token list_⟩`}`
 >`\lowercase{`⟨_token list_⟩`}`
 

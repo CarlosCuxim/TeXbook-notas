@@ -1,0 +1,30 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{calc}
+
+% \pagecolor{black}
+\color{white}
+
+\fboxsep=10pt
+\newdimen\bwidth \bwidth=240pt
+\def\smallskip{\vskip \smallskipamount}
+
+\begin{document}
+\fbox{\begin{minipage}{\bwidth}\parindent=20pt
+This paragraph comes before the hanging indentation paragraph to see a normal paragraph.
+
+{\smallskip
+\hangindent=-30pt  \hangafter=-2
+\noindent This first paragraph should have a hanging indentation of 30pt at the right of the first two lines. The rest of this paragraph is only dummy text to see the full effect of the command. Nothing interesting.
+\smallskip}
+
+{\smallskip
+\hangindent=30pt  \hangafter=2
+\noindent This second paragraph should have a hanging indentation of 30pt at the left of the last two lines. The rest of this paragraph is only dummy text to see the full effect of the command. Nothing interesting.
+\smallskip}
+
+This paragraph comes after the hanging indentation paragraph to see a normal paragraph.
+\end{minipage}}
+\end{document}
